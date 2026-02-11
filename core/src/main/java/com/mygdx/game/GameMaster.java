@@ -15,6 +15,7 @@ public class GameMaster extends ApplicationAdapter {
     private Circle circle;
     private Triangle triangle;
     private EntityManager entities;
+    private InputManager inputs;
 
     @Override
     public void create() {
@@ -43,6 +44,8 @@ public class GameMaster extends ApplicationAdapter {
         // 1. Handle Movements
         entities.movement();
         entities.update();
+
+        inputs.handleInputs();
 
         // 2. Draw Textures (SpriteBatch)
         batch.begin(); shape.begin(ShapeRenderer.ShapeType.Filled);
