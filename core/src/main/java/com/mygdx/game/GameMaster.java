@@ -6,56 +6,60 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.*;
+
 public class GameMaster extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private ShapeRenderer shape;
+  private SpriteBatch batch;
+  private ShapeRenderer shape;
 
-    private TextureObject bucket;
-    private TextureObject[] raindrops;
-    private Circle circle;
-    private Triangle triangle;
-    private EntityManager entities;
-    private InputManager inputs;
+  private Player player;
+  private EntityManager entities;
+  private InputManager inputManager;
+  private List<iInputDevice> inputDevices;
+  private List<iAcceptsInput> inputReceivers;
 
-    @Override
-    public void create() {
-        batch = new SpriteBatch();
-        shape = new ShapeRenderer();
-        entities = new EntityManager();
+  @Override
+  public void create() {
+    batch = new SpriteBatch();
+    shape = new ShapeRenderer();
+    entities = new EntityManager();
 
-        // Instantiate Subclasses
-        bucket = new TextureObject("bucket.png", 300, 20, 200, false);
-        circle = new Circle(600, 300, 150, Color.RED, 50);
-        triangle = new Triangle(100, 100, 150, Color.GREEN);
+    inputDevices = new ArrayList<>(
+        List.of(
+            new Keyboard()));
 
-        entities.add(bucket);
-        entities.add(circle);
-        entities.add(triangle);
+    inputManager = new InputManager(inputDevices);
+    inputReceivers = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
-            entities.add(new TextureObject("droplet.png", 100 + (i * 100), 400, 100, true));
-        }
+    player = new Player(100, 100, 150, Color.GREEN);
+
+    entities.add(player);
+    inputReceivers.add(player);
+  }
+
+  @Override
+  public void render() {
+    ScreenUtils.clear(0, 0, 0.2f, 1);
+
+    entities.movement();
+    entities.update();
+
+    // dispatch inputManager
+    inputManager.handleInputs();
+    for (iAcceptsInput i : inputReceivers) {
+      i.dispatchInput(inputManager.actionStates);
     }
 
-    @Override
-    public void render() {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+    batch.begin();
+    shape.begin(ShapeRenderer.ShapeType.Filled);
+    entities.draw(batch, shape);
+    batch.end();
+    shape.end();
+  }
 
-        // 1. Handle Movements
-        entities.movement();
-        entities.update();
-
-        inputs.handleInputs();
-
-        // 2. Draw Textures (SpriteBatch)
-        batch.begin(); shape.begin(ShapeRenderer.ShapeType.Filled);
-        entities.draw(batch, shape);
-        batch.end(); shape.end();
-    }
-
-    @Override
-    public void dispose() {
-        batch.dispose();
-        shape.dispose();
-    }
+  @Override
+  public void dispose() {
+    batch.dispose();
+    shape.dispose();
+  }
 }
