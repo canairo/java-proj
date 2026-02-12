@@ -6,6 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import core.src.main.java.com.mygdx.game.Entity.Player;
+import core.src.main.java.com.mygdx.game.Input.Keyboard;
+import core.src.main.java.com.mygdx.game.Managers.EntityManager;
+import core.src.main.java.com.mygdx.game.Managers.InputManager;
+import core.src.main.java.com.mygdx.game.Managers.iAcceptsInput;
+import core.src.main.java.com.mygdx.game.Managers.iInputDevice;
+
 import java.util.*;
 
 public class GameMaster extends ApplicationAdapter {

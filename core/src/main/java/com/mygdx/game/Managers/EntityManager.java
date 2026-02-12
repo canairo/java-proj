@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package core.src.main.java.com.mygdx.game.Managers;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,9 @@
-package com.mygdx.game;
+package core.src.main.java.com.mygdx.game.Entity;
 
 import com.badlogic.gdx.graphics.Color;
+
+import core.src.main.java.com.mygdx.game.Managers.iAcceptsInput;
+
 import java.util.*;
 
 public class Player extends Triangle implements iAcceptsInput {

@@ -1,8 +1,10 @@
-package com.mygdx.game;
+package core.src.main.java.com.mygdx.game.Entity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import core.src.main.java.com.mygdx.game.Input.iMovable;
 
 public abstract class Entity implements iMovable {
     protected float x;

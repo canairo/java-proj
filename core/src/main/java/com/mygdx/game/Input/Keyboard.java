@@ -1,6 +1,9 @@
-package com.mygdx.game;
+package core.src.main.java.com.mygdx.game.Input;
 
 import com.badlogic.gdx.Input;
+
+import core.src.main.java.com.mygdx.game.Managers.iInputDevice;
+
 import com.badlogic.gdx.Gdx;
 
 import java.util.*;
