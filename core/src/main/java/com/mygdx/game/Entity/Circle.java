@@ -1,4 +1,4 @@
-package core.src.main.java.com.mygdx.game.Entity;
+package com.mygdx.game.Entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -9,7 +9,7 @@ public class Circle extends Entity {
   private float radius;
 
   public Circle(float x, float y, float speed, Color color, float radius) {
-    super(x, y, speed, color);
+    //super(x, y, speed, color);
     this.radius = radius;
   }
 
