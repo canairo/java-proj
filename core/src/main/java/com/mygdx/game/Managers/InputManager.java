@@ -1,4 +1,4 @@
-package core.src.main.java.com.mygdx.game.Managers;
+package com.mygdx.game.Managers;
 
 import java.util.*;
 

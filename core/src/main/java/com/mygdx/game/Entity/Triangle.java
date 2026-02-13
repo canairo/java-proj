@@ -1,4 +1,4 @@
-package core.src.main.java.com.mygdx.game.Entity;
+package com.mygdx.game.Entity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
