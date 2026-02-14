@@ -2,7 +2,7 @@ package com.mygdx.game.Entity;
 
 import com.mygdx.game.Input.iMovable;
 
-public class MovingEntity extends Entity implements iMovable {
+public class MovingEntity extends Entity implements iMovable, {
 	protected float speed;
 	protected boolean isAI;
 	@Override
