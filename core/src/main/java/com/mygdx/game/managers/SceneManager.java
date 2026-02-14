@@ -17,6 +17,7 @@ public class SceneManager {
     batch.begin();
     for (Entity entity : entities) {
       if (entity instanceof iDrawable) {
+        System.out.println(entity);
         ((iDrawable) entity).draw(batch);
       }
     }

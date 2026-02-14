@@ -6,9 +6,9 @@ import com.mygdx.game.input.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.Texture;
 
-public class Player extends Entity implements iAcceptsInput, iDrawable {
+public class NPCCat extends Entity implements iMovable, iDrawable {
 
-  public Player(double x, double y, double width, double height, Texture texture) {
+  public NPCCat(double x, double y, double width, double height, Texture texture) {
     super((float) x, (float) y, (float) width, (float) height, texture);
   }
 
@@ -37,5 +37,9 @@ public class Player extends Entity implements iAcceptsInput, iDrawable {
 
   public void draw(Batch batch) {
     batch.draw(texture, x, y, width, height);
+  }
+
+  public void move() {
+    this.x += 1;
   }
 }
