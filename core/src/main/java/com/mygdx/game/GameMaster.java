@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import com.mygdx.game.entity.*;
+import com.mygdx.game.managers.*;
 import java.util.*;
 
 public class GameMaster extends ApplicationAdapter {
@@ -14,8 +16,10 @@ public class GameMaster extends ApplicationAdapter {
 
   private Player player;
   private EntityManager entities;
-  private InputManager inputManager;
-  private List<iInputDevice> inputDevices;
+  private InputManager inputs;
+  private ResourceManager resources;
+  private SceneManager scene;
+
   private List<iAcceptsInput> inputReceivers;
 
   @Override
@@ -24,15 +28,15 @@ public class GameMaster extends ApplicationAdapter {
     shape = new ShapeRenderer();
     entities = new EntityManager();
 
-    inputDevices = new ArrayList<>(
-        List.of(
-            new Keyboard()));
-
-    inputManager = new InputManager(inputDevices);
+    inputs = new InputManager();
     inputReceivers = new ArrayList<>();
 
-    player = new Player(100, 100, 150, Color.GREEN);
+    resources = new ResourceManager();
+    resources.initialize();
 
+    scene = new SceneManager();
+
+    player = new Player(100.0, 100.0, resources.getRawTexture("player"));
     entities.add(player);
     inputReceivers.add(player);
   }
@@ -41,25 +45,19 @@ public class GameMaster extends ApplicationAdapter {
   public void render() {
     ScreenUtils.clear(0, 0, 0.2f, 1);
 
-    entities.movement();
-    entities.update();
+    // dispatch inputs
+    inputs.handleInputs();
+    inputs.dispatchAll(entities.get());
 
-    // dispatch inputManager
-    inputManager.handleInputs();
-    for (iAcceptsInput i : inputReceivers) {
-      i.dispatchInput(inputManager.actionStates);
-    }
+    entities.moveAll();
 
-    batch.begin();
-    shape.begin(ShapeRenderer.ShapeType.Filled);
-    entities.draw(batch, shape);
-    batch.end();
-    shape.end();
+    // draw
+    scene.drawAll(entities.get());
   }
 
   @Override
   public void dispose() {
-    batch.dispose();
-    shape.dispose();
+    scene.dispose();
+    resources.dispose();
   }
 }
